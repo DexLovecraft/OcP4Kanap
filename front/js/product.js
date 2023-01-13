@@ -2,6 +2,9 @@ let url = new URL(window.location.href)
 let id = url.searchParams.get("id")
 const apiLink = `http://127.0.0.1:3000/api/products/${id}`
 
+let color = ''
+let quantity = 0
+
 fetch(apiLink)
     .then(response => response.json())
     .then(data => {
@@ -27,3 +30,19 @@ const completion = (data) => {
         document.querySelector('#colors').appendChild(option)
     })
 }
+
+document.querySelector('#colors').addEventListener('input', (e) => {
+    color = e.target.value
+    console.log(color)
+})
+
+document.querySelector('#quantity').addEventListener('input', (e) => {
+    if(e.target.value <= 100){
+        quantity = e.target.value
+        console.log(quantity)
+    }
+    else{
+        quantity = 100
+        console.log(quantity)
+    }
+})
