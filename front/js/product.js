@@ -31,18 +31,56 @@ const completion = (data) => {
     })
 }
 
+//this event listen to the option of personalisation and push it into a var
 document.querySelector('#colors').addEventListener('input', (e) => {
     color = e.target.value
-    console.log(color)
 })
 
+//this event listen to the option of personalisation and push it into a var after verification
 document.querySelector('#quantity').addEventListener('input', (e) => {
-    if(e.target.value <= 100){
+    if (document.querySelector('#quantity').validity.valid == true){
         quantity = e.target.value
         console.log(quantity)
     }
     else{
-        quantity = 100
+        quantity = 0
         console.log(quantity)
+        console.log('hors champ')
+        window.alert("Quantité invalide, Veuillez entré une quantité entre 1 et 100")
     }
 })
+
+const saveToCart = () =>  {
+    let existingItems = JSON.parse(localStorage.getItem("items"));
+    if(existingItems === null) {
+        existingItems = []
+    }
+
+    const newItem = {
+        id: id,
+        color: color,
+        quantity: quantity
+    }
+
+    existingItems.push(newItem)
+    localStorage.setItem("items", JSON.stringify(existingItems))
+    console.log(existingItems)
+} 
+
+document.querySelector('#addToCart').addEventListener('click', saveToCart)
+
+a = 1
+b = 3 
+c = 2
+
+if(a == 1 && b == 2){
+    console.log(c)
+}
+/*let chat = localStorage
+
+chat.setItem("monchat","bagera")
+
+console.log(chat)
+let monchat = chat.getItem("monchat")
+console.log(monchat)
+console.log(chat.getItem("monchat"))*/
