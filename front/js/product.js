@@ -66,6 +66,7 @@ const saveToCart = () =>  {
 
     if (existingItemIndex !== -1) {
         existingItems[existingItemIndex].quantity = parseInt(existingItems[existingItemIndex].quantity) + parseInt(newItem.quantity)
+        existingItems[existingItemIndex].quantity = String(existingItems[existingItemIndex].quantity)
         existingItems.splice(existingItemIndex, 1, existingItems[existingItemIndex])
     } else {
         existingItems.push(newItem)
