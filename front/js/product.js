@@ -62,18 +62,22 @@ const saveToCart = () =>  {
         quantity: quantity
     }
 
-    existingItems.push(newItem)
+    const existingItemIndex = existingItems.findIndex(item => item.id === id && item.color === color)
+
+    if (existingItemIndex !== -1) {
+        existingItems[existingItemIndex].quantity = parseInt(existingItems[existingItemIndex].quantity) + parseInt(newItem.quantity)
+        existingItems.splice(existingItemIndex, 1, existingItems[existingItemIndex])
+    } else {
+        existingItems.push(newItem)
+    }
+
     localStorage.setItem("items", JSON.stringify(existingItems))
     console.log(existingItems)
 } 
 
 document.querySelector('#addToCart').addEventListener('click', saveToCart)
 
-a = 1
-b = 3 
-c = 2
-
-if(a == 1 && b == 2){
+/*if(a == 1 && b == 2){
     console.log(c)
 }
 /*let chat = localStorage
