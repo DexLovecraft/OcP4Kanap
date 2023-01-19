@@ -72,6 +72,12 @@ const productInCartDisplay = () => {
                 cartDeleteContent.classList.add('deleteItem')
                 cartDeleteContent.textContent = 'Supprimer'
                 cartDelete.appendChild(cartDeleteContent)
+
+                setTimeout(() => {
+                    quantityModification(object)
+                    deleteItem(object)
+                },50)
+                
             })
             .catch(error => console.log('---',error,'---'))
         }
@@ -87,27 +93,69 @@ const totalQuantityCalc = () => {
 
 const totalPriceCalc = () => {
     let totalPrice = 0
-    for(let object in existingItems){
-        fetch(`${apiLink}/${existingItems[object].id}`)
-        .then(response => response.json())
-        .then(data => {
-            totalPrice = totalPrice + existingItems[object].quantity * data.price
-            document.querySelector('#totalPrice').textContent = totalPrice
-        })
-        .catch(error => console.log('---',error,'---'))
+    if(existingItems.length == 0){
+        totalPrice = 0
+        document.querySelector('#totalPrice').textContent = totalPrice    }
+    else{
+        for(let object in existingItems){
+            fetch(`${apiLink}/${existingItems[object].id}`)
+            .then(response => response.json())
+            .then(data => {
+                totalPrice = totalPrice + existingItems[object].quantity * data.price
+                document.querySelector('#totalPrice').textContent = totalPrice
+            })
+            .catch(error => console.log('---',error,'---'))
+        }
     }
 }
 
 //faut que je puisse le lancer a voir demain 
-const quantityModification = () => {
-    document.querySelector('.itemQuantity').addEventListener('input', e => {
-        console.log(e)
+const quantityModification = (num) => {
+    document.querySelectorAll('.itemQuantity')[num].addEventListener('input', e => {
+        let newQuantity = 0
+        let id = ''
+        let color = ''
+        let quantity = 0
+        if (document.querySelectorAll('.itemQuantity')[num].validity.valid == true){
+            newQuantity = e.target.value 
+        }
+        else{
+            newQuantity = 0
+            console.log('hors champ')
+            window.alert("Quantité invalide, Veuillez entré une quantité entre 1 et 100")
+        }
+
+        existingItems[num].quantity = newQuantity
+        const newItem = {
+            id: existingItems[num].id,
+            color: existingItems[num].color,
+            quantity: newQuantity
+        }
+            
+        if (existingItems[num].quantity !== newQuantity) {
+            existingItems.splice(existingItems[num], 1, newItem)
+        }
+        localStorage.setItem("items", JSON.stringify(existingItems))
+        console.log(existingItems)
+        totalQuantityCalc()
+        totalPriceCalc()
+    })
+}
+
+const deleteItem = (num) => {
+        document.querySelectorAll('.deleteItem')[num].addEventListener('click', (e) => {
+        existingItems.splice(existingItems[num], 1)
+        localStorage.setItem("items", JSON.stringify(existingItems))
+        cartItemContainer.innerHTML = ''
+
+        setTimeout(() => {
+            productInCartDisplay()
+            totalQuantityCalc()
+            totalPriceCalc()
+        }, 50)
     })
 }
 
 totalQuantityCalc()
-
 totalPriceCalc()
-
 productInCartDisplay()
-

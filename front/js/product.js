@@ -43,7 +43,7 @@ document.querySelector('#quantity').addEventListener('input', (e) => {
         console.log(quantity)
     }
     else{
-        quantity = 0
+        quantity = 1
         console.log(quantity)
         console.log('hors champ')
         window.alert("Quantité invalide, Veuillez entré une quantité entre 1 et 100")
