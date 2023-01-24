@@ -1,9 +1,9 @@
 let url = new URL(window.location.href)
 let id = url.searchParams.get("id")
-const apiLink = `http://127.0.0.1:3000/api/products/${id}`
+const apiLink = `http://localhost:3000/api/products/${id}`
 
 let color = ''
-let quantity = 1
+let quantity = '1'
 
 fetch(apiLink)
     .then(response => response.json())
@@ -90,15 +90,3 @@ const saveToCart = () =>  {
 } 
 
 document.querySelector('#addToCart').addEventListener('click', saveToCartVerification)
-
-/*if(a == 1 && b == 2){
-    console.log(c)
-}
-/*let chat = localStorage
-
-chat.setItem("monchat","bagera")
-
-console.log(chat)
-let monchat = chat.getItem("monchat")
-console.log(monchat)
-console.log(chat.getItem("monchat"))*/
