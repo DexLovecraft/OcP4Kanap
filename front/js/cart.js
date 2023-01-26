@@ -291,12 +291,14 @@ orderForm.addEventListener('submit', (e) => {
         }
         let data = {contact, products}
         localStorage.setItem('data', JSON.stringify(data))
-        document.location.href="http://localhost/html/confirmation.html"
+        setTimeout(()=>{
+            document.location.href="http://127.0.0.1:8080/html/confirmation.html"
+        },100)
     }
 })
 
-const dataSuppr = () => {
-    localStorage.removeItem("data")
+const dataSupr = () => {
+    localStorage.removeItem('data')
 }
 
 totalQuantityCalc()
