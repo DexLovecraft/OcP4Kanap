@@ -290,16 +290,21 @@ orderForm.addEventListener('submit', (e) => {
             products.push(existingItems[object].id)
         }
         let data = {contact, products}
-        localStorage.setItem('data', JSON.stringify(data))
-        setTimeout(()=>{
-            document.location.href="http://127.0.0.1:8080/html/confirmation.html"
-        },100)
+        fetch(`${apiLink}/order`, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json', 
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                  document.location.href = `./confirmation.html?orderId=${data.orderId}`
+            })
+            .catch(error => console.error('Error:', error));
     }
 })
-
-const dataSupr = () => {
-    localStorage.removeItem('data')
-}
 
 totalQuantityCalc()
 totalPriceCalc()
