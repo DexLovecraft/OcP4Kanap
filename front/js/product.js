@@ -12,7 +12,7 @@ fetch(apiLink)
     })
     .catch(error => console.log('---',error,'---'))
 
-//this function display all information
+//ce fonction lancée dans le fetch, recupere les données du produit sur le quelle on a cliquer, et affiche tout les detail 
 const completion = (data) => {
     let img = document.createElement('img')
     img.src = data.imageUrl
@@ -31,12 +31,12 @@ const completion = (data) => {
     })
 }
 
-//this event listen to the option of personalisation and push it into a var
+//Cet evenenement ecoute le formaluaire a option couleur et injecte la selection dans une variable.0
 document.querySelector('#colors').addEventListener('input', (e) => {
     color = e.target.value
 })
 
-//this event listen to the option of personalisation and push it into a var after verification
+//Cet evenement ecoute le formulaire de selection de quantité, verifie si la donnée rentrer et valide et si elle l'est l'injecte dans une variable. si elle ne l'est pas, affiche une errreur et reinitialise la valeur.
 document.querySelector('#quantity').addEventListener('input', (e) => {
     if (document.querySelector('#quantity').validity.valid === true){
         quantity = e.target.value
@@ -51,7 +51,7 @@ document.querySelector('#quantity').addEventListener('input', (e) => {
     }
 })
 
-
+//cet fonction verifie que l'on a bien choise une couleur et si oui appelle la fonction saveToCart
 const saveToCartVerification = () => {
     if(document.getElementById('colors').value){
         saveToCart()
@@ -59,10 +59,11 @@ const saveToCartVerification = () => {
     else{
         window.alert("vous n'avez pas choisi de couleur")
     }
-    //saveToCart()
 } 
 
-
+//La fonction ajouter au panier creer la viable items existant si elle n'existe pas dans le localstorage, creer un nouvelle item avec l'id correspondant a la page, la couleurs et la quatité choisie
+//apres ca on verifie que le produit exactement identitique n'existe pas, si il existe on modifie le produit existant en lui ajoutant la noiuvelle quantité
+//si il n'existe pas on ajoute le nouvelle item, dans les deux cas a la fin on sauvegarde dans le local storage
 const saveToCart = () =>  {
     let existingItems = JSON.parse(localStorage.getItem("items"));
     if(existingItems === null) {
@@ -89,4 +90,5 @@ const saveToCart = () =>  {
     console.log(existingItems)
 } 
 
+//cet evenement ecoute le bouton ajouter au panier, et appelle la fonction de verification
 document.querySelector('#addToCart').addEventListener('click', saveToCartVerification)

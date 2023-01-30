@@ -2,7 +2,7 @@ const apiLink = `http://localhost:3000/api/products`
 
 
 
-//This function create each cart dynaiccaly. form the creation of dom element to the completion by the server response
+//Cet fonction creer a elle seul les carte produits de maniere dynamique. elle recupere les information produit dans l'api et les affiche sur la page
 const cardCreation = () => {
     let Items = document.querySelector('#items')
     fetch(apiLink)
