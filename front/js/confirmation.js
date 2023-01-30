@@ -1,17 +1,5 @@
-const apiLink = `http://localhost:3000/api/products`
+let url = new URL(window.location.href)
 
+document.querySelector('#orderId').textContent = url.searchParams.get('orderId')
 
-fetch(`${apiLink}/order`, {
-    method: 'POST',
-    headers: {
-        'Accept': 'application/json', 
-        'Content-Type': 'application/json'
-    },
-    body: localStorage.getItem('data')
-    })
-    .then(response => response.json())
-    .then(data => {
-        document.querySelector('#orderId').textContent = data.orderId
-        localStorage.clear()   
-    })
-    .catch(error => console.error('Error:', error));
+localStorage.clear()
