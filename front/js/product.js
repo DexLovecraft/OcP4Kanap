@@ -40,13 +40,10 @@ document.querySelector('#colors').addEventListener('input', (e) => {
 document.querySelector('#quantity').addEventListener('input', (e) => {
     if (document.querySelector('#quantity').validity.valid === true){
         quantity = e.target.value
-        console.log(quantity)
     }
     else{
         quantity = 1
         document.querySelector('#quantity').value = quantity
-        console.log(quantity)
-        console.log('hors champ')
         window.alert("Quantité invalide, Veuillez entré une quantité entre 1 et 100")
     }
 })
@@ -87,7 +84,6 @@ const saveToCart = () =>  {
     }
 
     localStorage.setItem("items", JSON.stringify(existingItems))
-    console.log(existingItems)
 } 
 
 //cet evenement ecoute le bouton ajouter au panier, et appelle la fonction de verification

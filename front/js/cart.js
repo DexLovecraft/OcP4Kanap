@@ -125,7 +125,6 @@ const quantityModification = (num) => {
         else{
             newQuantity = 1
             document.querySelectorAll('.itemQuantity')[num].value = newQuantity
-            console.log('hors champ')
             window.alert("Quantité invalide, Veuillez entré une quantité entre 1 et 100")
         }
 
@@ -140,7 +139,6 @@ const quantityModification = (num) => {
             existingItems.splice(existingItems[num], 1, newItem)
         }
         localStorage.setItem("items", JSON.stringify(existingItems))
-        console.log(existingItems)
         totalQuantityCalc()
         totalPriceCalc()
     })
@@ -161,11 +159,6 @@ const deleteItem = (num) => {
     })
 }
 
-/*let isValid = false
-const regexNum = new RegExp('[0-9]')
-const regexMail = new RegExp('^[^\s@]+@[^\s@]+\.[^\s@]+$')
-
-let test1 = 'alex'*/
 const contact = {}
 let products = []
 
@@ -298,7 +291,6 @@ orderForm.addEventListener('submit', (e) => {
     let isFormValid = firstNameValid && lastNameValid && cityValid && addressValid && emailValid
 
     if(isFormValid){
-        console.log('formulaire ok')
         for(let object in existingItems){
             products.push(existingItems[object].id)
         }
@@ -322,28 +314,3 @@ orderForm.addEventListener('submit', (e) => {
 totalQuantityCalc()
 totalPriceCalc()
 productInCartDisplay()
-
-/*const contact = {
-	firstName: "Alex",
-	lastName: "Lovecraft",
-	address: "1 place spire le maitre",
-	city: "Vincennes",
-	email: "andrewlondon16@gmail.com",
-}
-const products = ["107fb5b75607497b96722bda5b504926","055743915a544fde83cfdfc904935ee7"]
-const data = {contact, products}
-
-fetch(`${apiLink}/order`, {
-    method: 'POST',
-    headers: {
-        'Accept': 'application/json', 
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log('Success:', data)
-        console.log(data.orderId)    
-    })
-    .catch(error => console.error('Error:', error));*/
