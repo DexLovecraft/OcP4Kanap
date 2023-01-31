@@ -116,9 +116,6 @@ const totalPriceCalc = () => {
 const quantityModification = (num) => {
     document.querySelectorAll('.itemQuantity')[num].addEventListener('input', e => {
         let newQuantity = 0
-        let id = ''
-        let color = ''
-        let quantity = 0
         if (document.querySelectorAll('.itemQuantity')[num].validity.valid == true){
             newQuantity = e.target.value 
         }
