@@ -122,7 +122,7 @@ const quantityModification = (num) => {
         else{
             newQuantity = 1
             document.querySelectorAll('.itemQuantity')[num].value = newQuantity
-            window.alert("Quantité invalide, Veuillez entré une quantité entre 1 et 100")
+            window.alert("Quantité invalide, Veuillez entrer une quantité entre 1 et 100")
         }
 
         existingItems[num].quantity = newQuantity
