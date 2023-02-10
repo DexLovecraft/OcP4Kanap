@@ -44,7 +44,7 @@ document.querySelector('#quantity').addEventListener('input', (e) => {
     else{
         quantity = 1
         document.querySelector('#quantity').value = quantity
-        window.alert("Quantité invalide, Veuillez entré une quantité entre 1 et 100")
+        window.alert("Quantité invalide, Veuillez entrer une quantité entre 1 et 100")
     }
 })
 
