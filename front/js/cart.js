@@ -4,7 +4,7 @@ const apiLink = `http://localhost:3000/api/products`
 let cartItemContainer = document.querySelector('#cart__items')
 
 //Cet fonction affiche le contenue du panier de maniere dynamique en recuperant les inforamtion du localstorage et de l'api, elle appelle ensuite les fonction de modification.
-const productInCartDisplay = () => {
+function productInCartDisplay() {
     for (let object in existingItems){
         fetch(`${apiLink}/${existingItems[object].id}`)
             .then(response => response.json())
@@ -85,7 +85,7 @@ const productInCartDisplay = () => {
  }
 
  //cet fonction calcul la quatité total et l'injecte dans l'html
-const totalQuantityCalc = () => {
+ function totalQuantityCalc () {
     let totalQuantity = 0  
     for(let object in existingItems){
         totalQuantity += parseInt(existingItems[object].quantity)
@@ -94,7 +94,7 @@ const totalQuantityCalc = () => {
 }
 
 //cet fonction calcul le prix total sans sauvegarder le prix, elle va donc chercher dans l'api le prix de tout les produit du panier et le multiplie a la quantité 
-const totalPriceCalc = () => {
+function totalPriceCalc() {
     let totalPrice = 0
     if(existingItems.length == 0){
         totalPrice = 0
@@ -113,8 +113,8 @@ const totalPriceCalc = () => {
 }
 
 //cet fonction permet de modifié la quantité d'un produit tout en remplacant l'ancienne quantité dans le localsotrage par la nouvelle.
-const quantityModification = (num) => {
-    document.querySelectorAll('.itemQuantity')[num].addEventListener('input', e => {
+function quantityModification(num) {
+    document.querySelectorAll('.itemQuantity')[num].addEventListener('input', function(e){
         let newQuantity = 0
         if (document.querySelectorAll('.itemQuantity')[num].validity.valid == true){
             newQuantity = e.target.value 
@@ -142,8 +142,8 @@ const quantityModification = (num) => {
 }
 
 //cette fonction peremet de suprimer un rpoduit du panier
-const deleteItem = (num) => {
-        document.querySelectorAll('.deleteItem')[num].addEventListener('click', (e) => {
+function deleteItem(num) {
+        document.querySelectorAll('.deleteItem')[num].addEventListener('click', function(e) {
         existingItems.splice(existingItems[num], 1)
         localStorage.setItem("items", JSON.stringify(existingItems))
         cartItemContainer.innerHTML = ''
@@ -170,19 +170,19 @@ const orderButton = document.querySelector('#order')
 
 
 //cet fonction verifie si il y a des chiffre dans un champs
-const withNumber = (value) => {
+function withNumber(value) {
     const regexNum = new RegExp('[0-9]')
     return regexNum.test(value)
 }
 
 //cet fonction verifie si ce qui est rentrer dans un champs est un e-mail valide
-const isEmailValid = (email) => {
-    const regexMail = new RegExp('/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/')
+function isEmailValid(email) {
+    const regexMail = new RegExp('^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
     return regexMail.test(email)
 }
 
 //cet fonction a l'aide de la fonction withNumber verifie si il y a des chifre dans le champs prénom, si il y en a elle affiche une erreur et retourne false 
-const firstNameValidation = () => {
+function firstNameValidation() {
     let valid = false 
     const firstName = firstNameField.value.trim()
     let errorField = document.querySelector('#firstNameErrorMsg')
@@ -201,7 +201,7 @@ const firstNameValidation = () => {
 }
 
 //cet fonction a l'aide de la fonction withNumber verifie si il y a des chifre dans le champs nom, si il y en a elle affiche une erreur et retourne false
-const lastNameValidation = () => {
+function lastNameValidation() {
     let valid = false 
     const lastName = lastNameField.value.trim()
     let errorField = document.querySelector('#lastNameErrorMsg')
@@ -220,7 +220,7 @@ const lastNameValidation = () => {
 }
 
 //cet fonction a l'aide de la fonction withNumber verifie si il y a des chifre dans le champs adresse, si il y en a pas elle affiche une erreur et retourne false
-const addressValidation = () => {
+function addressValidation() {
     let valid = false 
     const address = addressField.value.trim()
     let errorField = document.querySelector('#addressErrorMsg')
@@ -239,7 +239,7 @@ const addressValidation = () => {
 }
 
 //cet fonction a l'aide de la fonction withNumber verifie si il y a des chifre dans le champs ville, si il y en a elle affiche une erreur et retourne false
-const cityValidation = () => {
+function cityValidation() {
     let valid = false 
     const city = cityField.value.trim()
     let errorField = document.querySelector('#cityErrorMsg')
@@ -258,7 +258,7 @@ const cityValidation = () => {
 }
 
 //cet fonction a l'aide de la fonction isEmailValid verifie si l'email du champs correspondant est valid, si oui retourne true 
-const emailValidation = () => {
+function emailValidation() {
     let valid = false 
     const email = emailField.value.trim()
     let errorField = document.querySelector('#emailErrorMsg')
@@ -278,7 +278,7 @@ const emailValidation = () => {
 
 //cet evenement ecoute le bouton commander. il verifie que toutes les verification retourne true apres les avoir appeller. si oui il fait un apelle a api et redirige vers la page confirmation avec le orderId dans le lien
 //si non, les erreur correspondante a chaque verification s'affiche
-orderForm.addEventListener('submit', (e) => {
+orderForm.addEventListener('submit', function(e) {
     e.preventDefault()
     let firstNameValid = firstNameValidation(), lastNameValid = lastNameValidation(), 
     cityValid = cityValidation(),
